@@ -13,12 +13,11 @@ import { JwtModule } from '@nestjs/jwt';
   imports: [
     ConfigModule.forRoot(),
     MongooseModule.forRoot(
-      process.env.MONGODB_URI ||
-        'mongodb://localhost:27017/timer-db',
+      process.env.MONGODB_URI ?? '',
     ),
     JwtModule.register({
       global: true,
-      secret: process.env.JWT_SECRET,
+      secret: process.env.JWT_SECRET ?? '',
       signOptions: { expiresIn: '60s' },
     }),
     EventEmitterModule.forRoot(),
@@ -27,8 +26,8 @@ import { JwtModule } from '@nestjs/jwt';
     UsersModule,
     RedisModule.forRoot({
       config: {
-        host: 'localhost',
-        port: 6379,
+        host: process.env.REDIS_HOST ?? '',
+        port: parseInt(process.env.REDIS_PORT ?? '6379'),
       },
     }),
     AuthModule,

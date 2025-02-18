@@ -8,6 +8,7 @@ export class AuthController {
 
     @Post('signup')
     async signUp(@Body() createUserDto: CreateUserDto): Promise<{ access_token: string }> {
+        console.log(createUserDto);
         return await this.authService.signUp(createUserDto);
     }
 }

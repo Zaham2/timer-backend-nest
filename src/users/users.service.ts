@@ -22,7 +22,7 @@ export class UsersService {
     async createUser(createUserDto: CreateUserDto): Promise<UserDocument> {
         const salt = await genSalt(10);
         const pepperedPassword = createUserDto.password + this.pepper;
-        const hashedPassword = await hash(pepperedPassword, salt);
+        const hashedPassword = await hash(pepperedPassword, 10);
         const user = await this.userModel.create({
             ...createUserDto,
             password: hashedPassword,
